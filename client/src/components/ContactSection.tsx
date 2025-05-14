@@ -172,8 +172,8 @@ const ContactSection = () => {
             <div className="flex flex-col justify-between">
               <div>
                 <img 
-                  src="https://pixabay.com/get/g92ade00044e32b25295131a9d4023b8f47c65910a03a4c8405cdcffda4f3077ee380b7427efeb48fc60ab9086ee76cd6e66b38ac547ea55956745707230740fd_1280.jpg" 
-                  alt="SolarMan ready to help" 
+                  src="https://images.unsplash.com/photo-1592833063550-51b5deff46da?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400" 
+                  alt="Residential home with solar panels" 
                   className="rounded-xl shadow-lg mb-8"
                 />
                 
