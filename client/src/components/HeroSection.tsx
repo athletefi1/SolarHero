@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Zap, Shield, Leaf } from "lucide-react";
+import solarmanImg from "@/assets/Solarman.jpg";
 
 const HeroSection = () => {
   return (
@@ -55,9 +56,9 @@ const HeroSection = () => {
           </div>
           
           <div className="md:w-1/3 float-animation">
-            {/* Superhero solar technician image */}
+            {/* Superhero SolarMan image */}
             <img 
-              src="https://images.unsplash.com/photo-1580584126903-c17d41830450?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=800" 
+              src={solarmanImg} 
               alt="SolarMan superhero" 
               className="rounded-2xl shadow-2xl transform -rotate-3 border-4 border-secondary mx-auto" 
             />
