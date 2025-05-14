@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { 
   Card, 
   CardContent 
@@ -22,11 +22,15 @@ interface SavingsChartProps {
 
 const ComparisonSection = () => {
   const [currentBill, setCurrentBill] = useState<number>(120);
-  const [solarRate, setSolarRate] = useState<number>(79);
   const [utilityProvider, setUtilityProvider] = useState<string>("PSEG");
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [monthlySavings, setMonthlySavings] = useState<number>(0);
   const [totalSavings, setTotalSavings] = useState<number>(0);
+  
+  // Calculate SolarMan fixed rate as 10% less than current bill (always)
+  const solarRate = useMemo(() => {
+    return Math.round(currentBill * 0.9);
+  }, [currentBill]);
   
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
@@ -43,6 +47,13 @@ const ComparisonSection = () => {
       }
     };
   }, []);
+
+  // Update solar rate whenever current bill changes
+  useEffect(() => {
+    if (chartInstance.current) {
+      updateChart();
+    }
+  }, [solarRate]);
 
   const initializeChart = () => {
     const ctx = chartRef.current?.getContext('2d');
@@ -125,7 +136,7 @@ const ComparisonSection = () => {
     });
   };
 
-  const generateChart = () => {
+  const updateChart = () => {
     if (!chartInstance.current) return;
     
     // Calculate utility bills with 4% annual increase
@@ -139,6 +150,12 @@ const ComparisonSection = () => {
     chartInstance.current.data.datasets[0].data = utilityData;
     chartInstance.current.data.datasets[1].data = solarData;
     chartInstance.current.update();
+  };
+
+  const generateChart = () => {
+    if (!chartInstance.current) return;
+    
+    updateChart();
     
     // Calculate and display savings
     const monthSavings = currentBill - solarRate;
@@ -188,14 +205,9 @@ const ComparisonSection = () => {
                   <Label htmlFor="solar-rate" className="block text-gray-700 font-medium mb-2">
                     SolarMan Fixed Rate ($)
                   </Label>
-                  <Input 
-                    id="solar-rate" 
-                    type="number" 
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" 
-                    placeholder="e.g. 79" 
-                    value={solarRate} 
-                    onChange={(e) => setSolarRate(Number(e.target.value))}
-                  />
+                  <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 font-medium">
+                    ${solarRate} <span className="text-sm text-green-600 ml-2">(Always 10% less than your current bill)</span>
+                  </div>
                 </div>
                 
                 <div className="mb-6">
