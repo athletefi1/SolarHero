@@ -259,14 +259,14 @@ const ComparisonSection = () => {
               </div>
             </div>
             
-            {/* Visual aid showing residential solar home */}
+            {/* Visual aid showing energy savings */}
             <div className="mt-8 border-t border-gray-200 pt-8 text-center">
               <img 
-                src="https://images.unsplash.com/photo-1627905646269-7f034dcc5738?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=500" 
-                alt="Residential home with solar panels" 
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&h=500" 
+                alt="Energy savings visualization" 
                 className="rounded-lg shadow-md mx-auto"
               />
-              <p className="text-gray-500 mt-3 italic">Join homeowners like you enjoying solar savings every month</p>
+              <p className="text-gray-500 mt-3 italic">Visual representation of your potential savings over 20 years</p>
             </div>
           </CardContent>
         </Card>

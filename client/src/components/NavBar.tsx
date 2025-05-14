@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import solarmanLogoImg from "@/assets/Solarman2.jpg";
 
 const NavBar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,10 +28,10 @@ const NavBar = () => {
 
   return (
     <header className={`fixed w-full z-50 bg-white ${scrolled ? "shadow-md" : ""} transition-shadow duration-300`}>
-      <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
+      <nav className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          <img src={solarmanLogoImg} alt="SolarMan Logo" className="h-14 mr-2" />
           <span className="text-2xl font-bold font-montserrat text-primary">
+            <i className="fas fa-solar-panel mr-2"></i>
             SolarMan
           </span>
         </div>
