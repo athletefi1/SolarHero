@@ -45,8 +45,8 @@ const ReferralSection = () => {
             
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1592833063497-93211531bee7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000" 
-                alt="Residential home with solar panels" 
+                src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=1000" 
+                alt="Solar panels on a home" 
                 className="rounded-xl shadow-xl"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg transform rotate-3 border-2 border-secondary hidden md:block">
