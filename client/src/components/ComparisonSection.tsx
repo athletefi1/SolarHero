@@ -3,7 +3,6 @@ import {
   Card, 
   CardContent 
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -23,9 +22,8 @@ interface SavingsChartProps {
 const ComparisonSection = () => {
   const [currentBill, setCurrentBill] = useState<number>(120);
   const [utilityProvider, setUtilityProvider] = useState<string>("PSEG");
-  const [showSummary, setShowSummary] = useState<boolean>(false);
-  const [monthlySavings, setMonthlySavings] = useState<number>(0);
-  const [totalSavings, setTotalSavings] = useState<number>(0);
+  const [monthlySavings, setMonthlySavings] = useState<number>(12);
+  const [totalSavings, setTotalSavings] = useState<number>(20189);
   
   // Calculate SolarMan fixed rate as 10% less than current bill (always)
   const solarRate = useMemo(() => {
@@ -48,12 +46,26 @@ const ComparisonSection = () => {
     };
   }, []);
 
-  // Update solar rate whenever current bill changes
+  // Update chart and calculate savings whenever current bill or solar rate changes
   useEffect(() => {
     if (chartInstance.current) {
       updateChart();
     }
-  }, [solarRate]);
+    
+    // Calculate and display savings
+    const monthSavings = currentBill - solarRate;
+    
+    // Calculate 20-year savings with the 4% annual increase in utility bills
+    let totalSavingsAmount = 0;
+    for (let year = 0; year < 20; year++) {
+      const yearlyUtilityBill = currentBill * 12 * Math.pow(1.04, year);
+      const yearlySolarBill = solarRate * 12;
+      totalSavingsAmount += (yearlyUtilityBill - yearlySolarBill);
+    }
+    
+    setMonthlySavings(monthSavings);
+    setTotalSavings(Math.round(totalSavingsAmount));
+  }, [currentBill, solarRate]);
 
   const initializeChart = () => {
     const ctx = chartRef.current?.getContext('2d');
@@ -152,27 +164,6 @@ const ComparisonSection = () => {
     chartInstance.current.update();
   };
 
-  const generateChart = () => {
-    if (!chartInstance.current) return;
-    
-    updateChart();
-    
-    // Calculate and display savings
-    const monthSavings = currentBill - solarRate;
-    
-    // Calculate 20-year savings with the 4% annual increase in utility bills
-    let totalSavingsAmount = 0;
-    for (let year = 0; year < 20; year++) {
-      const yearlyUtilityBill = currentBill * 12 * Math.pow(1.04, year);
-      const yearlySolarBill = solarRate * 12;
-      totalSavingsAmount += (yearlyUtilityBill - yearlySolarBill);
-    }
-    
-    setMonthlySavings(monthSavings);
-    setTotalSavings(Math.round(totalSavingsAmount));
-    setShowSummary(true);
-  };
-
   return (
     <section id="compare" className="section py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -231,20 +222,11 @@ const ComparisonSection = () => {
                   </Select>
                 </div>
                 
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all"
-                  onClick={generateChart}
-                >
-                  Generate Savings Chart
-                </Button>
-                
-                {showSummary && (
-                  <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                    <div className="font-bold text-green-700 text-lg mb-2">Your 20-Year Savings</div>
-                    <div className="text-2xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
-                    <div className="text-green-600 mt-1">You'll save ${monthlySavings.toFixed(0)} every month!</div>
-                  </div>
-                )}
+                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <div className="font-bold text-green-700 text-lg mb-2">Your 20-Year Savings</div>
+                  <div className="text-2xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
+                  <div className="text-green-600 mt-1">You'll save ${monthlySavings.toFixed(0)} every month!</div>
+                </div>
               </div>
               
               <div>
