@@ -1,0 +1,105 @@
+🔸 1. Homepage
+Purpose:
+Capture attention instantly with a bold value proposition and invite users to explore SolarMan’s offering.
+
+Key Elements:
+
+Headline: “No Cash, No Credit. Just Sunlight.”
+
+Subheadline: Emphasizes fixed monthly payments and long-term savings
+
+Call-to-Action Button: Scrolls user down to the Savings Chart section
+
+Navigation Bar: Links to all major sections (#how-it-works, #compare, #referral, #contact)
+
+Hero Theme: Branded around SolarMan—approachable, bold, and helpful
+
+🔸 2. How It Works (#how-it-works)
+Purpose:
+Simplify the process for first-time solar buyers. Build trust by clearly outlining each step.
+
+Steps Listed:
+
+Qualify Your Home – Submit a recent utility bill to start.
+
+System Design – A custom solar + efficiency plan is made for your house.
+
+Home Upgrades – You receive added benefits: LED lighting, smart thermostat, insulation, etc.
+
+Installation – SolarMan handles permits, engineering, and all local compliance.
+
+Fixed Monthly Bill – You pay less every month and your bill never rises.
+
+Tone: Friendly and informative. Each step demystifies the solar experience.
+
+🔸 3. Savings Comparison Tool (#compare)
+Purpose:
+Deliver a visual punch. Show how much money SolarMan saves you long-term.
+
+Features:
+
+Input Fields:
+
+Current average monthly bill (e.g., $120)
+
+SolarMan fixed offer (e.g., $79)
+
+Dropdown for utility provider (PSEG, PECO, PPL, etc.)
+
+Chart Output:
+
+Line graph using Chart.js
+
+Utility bill grows by ~4% annually, doubling in 20 years
+
+SolarMan line stays flat
+
+Call to Action:
+
+“Generate Savings Chart” button renders the graph in real time
+
+🔸 4. Referral Program (#referral)
+Purpose:
+Encourage word-of-mouth growth and give customers a reason to share.
+
+Content:
+
+“Refer 6 people and unlock our best possible solar rate.”
+
+Text explains the simplicity and benefit of sharing your SolarMan experience
+
+Short, list-style format to keep it digestible
+
+Future Feature:
+Could add a referral form or link to Ambassador app signup
+
+🔸 5. Contact Page (#contact)
+Purpose:
+Allow homeowners to request more info, schedule a consultation, or ask questions.
+
+Form Fields:
+
+Name
+
+Email
+
+Phone
+
+Message
+
+Submission:
+Currently front-end only. Can later integrate with:
+
+Google Forms backend
+
+Firebase
+
+Formspree or EmailJS
+
+🔸 6. Footer
+Purpose:
+Show professionalism and ownership.
+
+Content:
+
+“© 2025 SolarMan Energy. All rights reserved.”
