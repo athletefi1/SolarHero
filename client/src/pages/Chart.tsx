@@ -211,12 +211,18 @@ const ChartPage = () => {
           </div>
         </div>
         
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
           <button 
             onClick={() => setLocation('/')}
             className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
           >
             Back to Homepage
+          </button>
+          <button 
+            onClick={() => setLocation('/#contact')}
+            className="px-6 py-3 bg-secondary text-[hsl(var(--dark))] rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+          >
+            Schedule My Consultation
           </button>
         </div>
       </div>

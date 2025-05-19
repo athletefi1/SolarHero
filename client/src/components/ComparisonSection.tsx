@@ -273,7 +273,7 @@ const ComparisonSection = () => {
                   </div>
                   <div className="flex items-center">
                     <a href="/chart" className="flex items-center cursor-pointer hover:underline">
-                      <span className="inline-block w-4 h-4 bg-black rounded-full mr-2"></span>
+                      <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
                       <span className="text-gray-700">SolarMan Fixed Rate</span>
                     </a>
                   </div>
