@@ -3,10 +3,10 @@ import { CheckCircle, Lightbulb } from "lucide-react";
 
 const ReferralSection = () => {
   const referralBenefits = [
-    "Each successful referral earns you a 5% discount on your monthly rate",
-    "Your friends and family get a $250 signing bonus",
-    "After 6 referrals, you'll receive our guaranteed lowest rate",
-    "Simple process: just share your unique referral code"
+    "Each successful referral earns you a discount on your monthly rate",
+    "Your friends and family get a signing bonus when they join",
+    "After multiple referrals, you'll receive our guaranteed lowest rate",
+    "Simple process: just share your solar experience with friends and family"
   ];
 
   return (

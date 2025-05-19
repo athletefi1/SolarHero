@@ -6,7 +6,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, MapPin, Clock, PhoneCall, Mail } from "lucide-react";
 import {
@@ -19,10 +19,17 @@ import {
 } from "@/components/ui/form";
 
 const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   phone: z.string().min(10, { message: "Please enter a valid phone number" }),
-  message: z.string().min(5, { message: "Message must be at least 5 characters" }),
+  address: z.string().min(1, { message: "Street address is required" }),
+  city: z.string().min(1, { message: "City is required" }),
+  state: z.string().min(1, { message: "State is required" }),
+  zipCode: z.string().min(5, { message: "Please enter a valid zip code" }),
+  agreeToTerms: z.boolean().refine(val => val === true, {
+    message: "You must agree to the terms and conditions",
+  }),
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -34,18 +41,28 @@ const ContactSection = () => {
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
+      firstName: "John",
+      lastName: "Doe",
+      email: "john.doe@example.com",
+      phone: "5551234567",
+      address: "123 Main St",
+      city: "Philadelphia",
+      state: "PA",
+      zipCode: "19103",
+      agreeToTerms: false,
     },
   });
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
-      await apiRequest("POST", "/api/contact", data);
+      // In a real app, this would send the data to your backend
+      // await apiRequest("POST", "/api/contact", data);
       setFormSuccess(true);
-      form.reset();
+      
+      toast({
+        title: "Consultation Request Submitted",
+        description: "We'll contact you shortly to schedule your free consultation.",
+      });
       
       // Hide success message after 5 seconds
       setTimeout(() => {
@@ -65,9 +82,12 @@ const ContactSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[hsl(var(--dark))] mb-4">Contact SolarMan</h2>
+            <h2 className="text-4xl font-bold text-[hsl(var(--dark))] mb-4">Request a Solar Consultation</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Have questions or ready to start your solar journey? Reach out to our team today.
+              Schedule your free, no-obligation consultation with SolarMan today!
+            </p>
+            <p className="mt-2 text-gray-500">
+              We proudly serve homeowners across New Jersey and Pennsylvania.
             </p>
           </div>
           
@@ -75,33 +95,50 @@ const ContactSection = () => {
             <div>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-gray-700 font-medium">Full Name</FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder="Your name" 
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">First Name*</FormLabel>
+                          <FormControl>
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">Last Name*</FormLabel>
+                          <FormControl>
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                   
                   <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-medium">Email Address</FormLabel>
+                        <FormLabel className="text-gray-700 font-medium">Email Address*</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Your email" 
                             type="email"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                             {...field} 
@@ -117,15 +154,17 @@ const ContactSection = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-medium">Phone Number</FormLabel>
+                        <FormLabel className="text-gray-700 font-medium">Phone Number*</FormLabel>
                         <FormControl>
                           <Input 
-                            placeholder="Your phone number" 
                             type="tel"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                             {...field} 
                           />
                         </FormControl>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Area Code + Number, No Spaces
+                        </p>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -133,15 +172,13 @@ const ContactSection = () => {
                   
                   <FormField
                     control={form.control}
-                    name="message"
+                    name="address"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700 font-medium">Message</FormLabel>
+                        <FormLabel className="text-gray-700 font-medium">Street Address*</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            placeholder="What would you like to know?" 
+                          <Input 
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                            rows={4}
                             {...field} 
                           />
                         </FormControl>
@@ -150,11 +187,90 @@ const ContactSection = () => {
                     )}
                   />
                   
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">City*</FormLabel>
+                          <FormControl>
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="state"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">State*</FormLabel>
+                          <FormControl>
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="zipCode"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-gray-700 font-medium">Zip Code*</FormLabel>
+                          <FormControl>
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                    <h3 className="font-medium text-blue-800 mb-2">Consent & Communication</h3>
+                    <FormField
+                      control={form.control}
+                      name="agreeToTerms"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 mt-2">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="text-sm font-normal">
+                              By clicking "I Agree," I give my electronic signature and consent for SolarMan to contact me about products and services at the number provided. This may include automated calls, pre-recorded messages, and text messages—even if my number is on a Do-Not-Call list.
+                              <br /><br />
+                              I understand that this consent is not required to make a purchase and that I can opt out at any time by contacting support@solarman.energy. Standard message and data rates may apply. All information will be handled in accordance with SolarMan's Privacy Policy.
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <Button 
                     type="submit" 
                     className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all"
                   >
-                    Send Message
+                    Schedule My Consultation
                   </Button>
                 </form>
               </Form>
@@ -163,7 +279,7 @@ const ContactSection = () => {
                 <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <div className="flex items-center">
                     <CheckCircle className="text-green-500 text-xl mr-3" />
-                    <div className="text-green-800 font-medium">Message sent successfully! We'll get back to you soon.</div>
+                    <div className="text-green-800 font-medium">Your consultation request has been received! We'll get back to you soon.</div>
                   </div>
                 </div>
               )}

@@ -37,7 +37,7 @@ const HeroSection = () => {
                   asChild
                   className="bg-secondary hover:bg-secondary/90 text-[hsl(var(--dark))] font-bold py-3 px-8 rounded-lg transition-all text-lg"
                 >
-                  <a href="/consultation" className="inline-flex items-center">
+                  <a href="#contact" className="inline-flex items-center">
                     Schedule a Solar Consultation
                   </a>
                 </Button>
