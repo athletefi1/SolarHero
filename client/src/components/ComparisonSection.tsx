@@ -250,7 +250,7 @@ const ComparisonSection = () => {
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                   <div className="font-bold text-green-700 text-lg mb-2">Your 25-Year Savings</div>
                   <div className="text-2xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
-                  <div className="text-green-600 mt-1">You'll save ${monthlySavings.toFixed(0)} every month!</div>
+                  <div className="text-green-600 mt-1">You'll save ${(monthlySavings * 12).toFixed(0)} in the first year!</div>
                 </div>
               </div>
               
