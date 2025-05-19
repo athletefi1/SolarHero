@@ -221,7 +221,7 @@ const ComparisonSection = () => {
                       onDoubleClick={() => setIsEditingSolarRate(true)}
                       title="Double-click to edit"
                     >
-                      ${solarRate} <span className="text-sm text-green-600 ml-2">(15% lower rate - Double-click to customize)</span>
+                      ${solarRate} <span className="text-sm text-green-600 ml-2">(Save at least 15%)</span>
                     </div>
                   )}
                 </div>
