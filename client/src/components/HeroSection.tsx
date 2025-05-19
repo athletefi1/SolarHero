@@ -7,8 +7,11 @@ const HeroSection = () => {
     <section id="home" className="section pt-24 pb-16 relative">
       {/* Background image with overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center hero-gradient" 
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080')" }}
+        className="absolute inset-0 bg-center bg-no-repeat overflow-hidden hero-gradient" 
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080')",
+          backgroundSize: "100% 100%"
+        }}
       ></div>
       
       <div className="container mx-auto px-4 relative z-10">
