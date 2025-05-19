@@ -25,9 +25,9 @@ const ComparisonSection = () => {
   const [monthlySavings, setMonthlySavings] = useState<number>(12);
   const [totalSavings, setTotalSavings] = useState<number>(20189);
   
-  // Calculate SolarMan fixed rate as 10% less than current bill (always)
+  // Calculate SolarMan fixed rate as 15% less than current bill (always)
   const solarRate = useMemo(() => {
-    return Math.round(currentBill * 0.9);
+    return Math.round(currentBill * 0.85);
   }, [currentBill]);
   
   const chartRef = useRef<HTMLCanvasElement>(null);
@@ -55,9 +55,9 @@ const ComparisonSection = () => {
     // Calculate and display savings
     const monthSavings = currentBill - solarRate;
     
-    // Calculate 20-year savings with the 4% annual increase in utility bills
+    // Calculate 25-year savings with the 4% annual increase in utility bills
     let totalSavingsAmount = 0;
-    for (let year = 0; year < 20; year++) {
+    for (let year = 0; year < 25; year++) {
       const yearlyUtilityBill = currentBill * 12 * Math.pow(1.04, year);
       const yearlySolarBill = solarRate * 12;
       totalSavingsAmount += (yearlyUtilityBill - yearlySolarBill);
@@ -223,7 +223,7 @@ const ComparisonSection = () => {
                 </div>
                 
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="font-bold text-green-700 text-lg mb-2">Your 20-Year Savings</div>
+                  <div className="font-bold text-green-700 text-lg mb-2">Your 25-Year Savings</div>
                   <div className="text-2xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
                   <div className="text-green-600 mt-1">You'll save ${monthlySavings.toFixed(0)} every month!</div>
                 </div>
