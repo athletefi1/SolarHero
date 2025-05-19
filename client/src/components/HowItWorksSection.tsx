@@ -59,11 +59,11 @@ const HowItWorksSection = () => {
         {/* Installation Image */}
         <div className="mt-16 text-center">
           <img 
-            src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600" 
-            alt="Solar panel installation process" 
+            src="https://images.unsplash.com/photo-1611365892117-00d770b4ea7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600" 
+            alt="Residential solar panel installation" 
             className="rounded-xl shadow-xl mx-auto"
           />
-          <p className="text-gray-500 mt-4 italic">Our professional team handles the entire installation process</p>
+          <p className="text-gray-500 mt-4 italic">Our professional team handles the entire residential installation process</p>
         </div>
       </div>
     </section>
