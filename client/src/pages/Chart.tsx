@@ -8,32 +8,54 @@ const ChartPage = () => {
   const [, setLocation] = useLocation();
   const [currentBill, setCurrentBill] = useState<number>(300);
   const [solarRate, setSolarRate] = useState<number>(255);
+  const [annualIncrease, setAnnualIncrease] = useState<number>(4);
   const [yearlyData, setYearlyData] = useState<{utility: number[], solar: number[]}>({
     utility: [],
     solar: []
   });
   const [totalSavings, setTotalSavings] = useState<number>(0);
   
+  // Edit states
+  const [editingCurrentBill, setEditingCurrentBill] = useState<boolean>(false);
+  const [editingSolarRate, setEditingSolarRate] = useState<boolean>(false);
+  const [editingAnnualRate, setEditingAnnualRate] = useState<boolean>(false);
+  const [tempCurrentBill, setTempCurrentBill] = useState<string>('300');
+  const [tempSolarRate, setTempSolarRate] = useState<string>('255');
+  const [tempAnnualRate, setTempAnnualRate] = useState<string>('4');
+  
   useEffect(() => {
     // Get query parameters if any
     const params = new URLSearchParams(window.location.search);
     const billParam = params.get('bill');
     const rateParam = params.get('rate');
+    const increaseParam = params.get('increase');
     
     if (billParam) {
-      setCurrentBill(parseInt(billParam));
+      const bill = parseInt(billParam);
+      setCurrentBill(bill);
+      setTempCurrentBill(bill.toString());
     }
     
     if (rateParam) {
-      setSolarRate(parseInt(rateParam));
+      const rate = parseInt(rateParam);
+      setSolarRate(rate);
+      setTempSolarRate(rate.toString());
+    }
+    
+    if (increaseParam) {
+      const increase = parseFloat(increaseParam);
+      setAnnualIncrease(increase);
+      setTempAnnualRate(increase.toString());
     }
   }, []);
   
   useEffect(() => {
     // Calculate 25-year data for the chart
     const years = Array.from({ length: 26 }, (_, i) => i);
+    const annualRateMultiplier = 1 + (annualIncrease / 100);
+    
     const utilityData = years.map(year => 
-      parseFloat((currentBill * Math.pow(1.04, year)).toFixed(2))
+      parseFloat((currentBill * Math.pow(annualRateMultiplier, year)).toFixed(2))
     );
     const solarData = Array(26).fill(solarRate);
     
@@ -45,14 +67,59 @@ const ChartPage = () => {
     // Calculate total savings
     let totalSavingsAmount = 0;
     for (let year = 0; year < 25; year++) {
-      const yearlyUtilityBill = currentBill * 12 * Math.pow(1.04, year);
+      const yearlyUtilityBill = currentBill * 12 * Math.pow(annualRateMultiplier, year);
       const yearlySolarBill = solarRate * 12;
       totalSavingsAmount += (yearlyUtilityBill - yearlySolarBill);
     }
     
     setTotalSavings(Math.round(totalSavingsAmount));
-  }, [currentBill, solarRate]);
+  }, [currentBill, solarRate, annualIncrease]);
   
+  // Handle editing bill value
+  const handleBillEdit = () => {
+    setEditingCurrentBill(true);
+  };
+  
+  const saveBillEdit = () => {
+    const newValue = parseInt(tempCurrentBill);
+    if (!isNaN(newValue) && newValue > 0) {
+      setCurrentBill(newValue);
+    } else {
+      setTempCurrentBill(currentBill.toString());
+    }
+    setEditingCurrentBill(false);
+  };
+  
+  // Handle editing solar rate
+  const handleRateEdit = () => {
+    setEditingSolarRate(true);
+  };
+  
+  const saveRateEdit = () => {
+    const newValue = parseInt(tempSolarRate);
+    if (!isNaN(newValue) && newValue > 0) {
+      setSolarRate(newValue);
+    } else {
+      setTempSolarRate(solarRate.toString());
+    }
+    setEditingSolarRate(false);
+  };
+  
+  // Handle editing annual increase
+  const handleAnnualEdit = () => {
+    setEditingAnnualRate(true);
+  };
+  
+  const saveAnnualEdit = () => {
+    const newValue = parseFloat(tempAnnualRate);
+    if (!isNaN(newValue) && newValue >= 0) {
+      setAnnualIncrease(newValue);
+    } else {
+      setTempAnnualRate(annualIncrease.toString());
+    }
+    setEditingAnnualRate(false);
+  };
+
   // Initialize chart
   useEffect(() => {
     if (!chartRef.current || yearlyData.utility.length === 0) return;
@@ -94,15 +161,7 @@ const ChartPage = () => {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'top',
-            align: 'center',
-            labels: {
-              usePointStyle: true,
-              padding: 20,
-              font: {
-                size: 14
-              }
-            }
+            display: false // Hide the legend since we're using our custom legend
           },
           tooltip: {
             mode: 'index',
@@ -174,7 +233,29 @@ const ChartPage = () => {
           <div className="flex items-center justify-center gap-8 mb-6">
             <div className="flex items-center">
               <span className="inline-block w-4 h-4 bg-red-500 rounded-full mr-2"></span>
-              <span className="text-gray-700">Utility Bills (4% annual increase)</span>
+              <span className="text-gray-700">
+                Utility Bills (
+                {editingAnnualRate ? (
+                  <input
+                    type="text"
+                    value={tempAnnualRate}
+                    onChange={(e) => setTempAnnualRate(e.target.value)}
+                    onBlur={saveAnnualEdit}
+                    onKeyDown={(e) => e.key === 'Enter' && saveAnnualEdit()}
+                    className="w-10 bg-gray-100 border border-gray-300 rounded px-1 text-center"
+                    autoFocus
+                  />
+                ) : (
+                  <span 
+                    className="cursor-pointer hover:text-blue-600 hover:underline"
+                    onDoubleClick={handleAnnualEdit}
+                    title="Double-click to edit"
+                  >
+                    {annualIncrease}%
+                  </span>
+                )}
+                {' '}annual increase)
+              </span>
             </div>
             <div className="flex items-center">
               <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
@@ -186,11 +267,51 @@ const ChartPage = () => {
           <div className="grid md:grid-cols-2 gap-8 mb-6">
             <div className="border border-gray-200 rounded p-4">
               <div className="font-bold mb-2">Your Current Monthly Bill</div>
-              <div className="text-3xl">${currentBill}</div>
+              {editingCurrentBill ? (
+                <div className="text-3xl">
+                  $<input
+                    type="text"
+                    value={tempCurrentBill}
+                    onChange={(e) => setTempCurrentBill(e.target.value)}
+                    onBlur={saveBillEdit}
+                    onKeyDown={(e) => e.key === 'Enter' && saveBillEdit()}
+                    className="w-20 bg-gray-100 border border-gray-300 rounded px-1"
+                    autoFocus
+                  />
+                </div>
+              ) : (
+                <div 
+                  className="text-3xl cursor-pointer hover:text-blue-600" 
+                  onDoubleClick={handleBillEdit}
+                  title="Double-click to edit"
+                >
+                  ${currentBill}
+                </div>
+              )}
             </div>
             <div className="border border-gray-200 rounded p-4">
               <div className="font-bold mb-2">SolarMan Fixed Rate</div>
-              <div className="text-3xl">${solarRate}</div>
+              {editingSolarRate ? (
+                <div className="text-3xl">
+                  $<input
+                    type="text"
+                    value={tempSolarRate}
+                    onChange={(e) => setTempSolarRate(e.target.value)}
+                    onBlur={saveRateEdit}
+                    onKeyDown={(e) => e.key === 'Enter' && saveRateEdit()}
+                    className="w-20 bg-gray-100 border border-gray-300 rounded px-1"
+                    autoFocus
+                  />
+                </div>
+              ) : (
+                <div 
+                  className="text-3xl cursor-pointer hover:text-blue-600" 
+                  onDoubleClick={handleRateEdit}
+                  title="Double-click to edit"
+                >
+                  ${solarRate}
+                </div>
+              )}
             </div>
           </div>
           
