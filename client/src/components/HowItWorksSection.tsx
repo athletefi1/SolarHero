@@ -58,11 +58,11 @@ const HowItWorksSection = () => {
         
         {/* Installation Video */}
         <div className="mt-16 text-center">
-          <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-xl mx-auto max-w-4xl">
+          <div className="mx-auto max-w-4xl aspect-video rounded-xl shadow-xl overflow-hidden">
             <iframe 
               src="https://www.youtube.com/embed/grmqsVtQIOs" 
               title="Solar Panel Installation Video"
-              className="absolute top-0 left-0 w-full h-full border-0"
+              className="w-full h-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
               allowFullScreen
             ></iframe>
