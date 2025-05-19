@@ -56,14 +56,17 @@ const HowItWorksSection = () => {
           ))}
         </div>
         
-        {/* Installation Image */}
+        {/* Installation Video */}
         <div className="mt-16 text-center">
-          <img 
-            src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600" 
-            alt="Residential solar panel installation" 
-            className="rounded-xl shadow-xl mx-auto"
-          />
-          <p className="text-gray-500 mt-4 italic">Our professional team handles the entire residential installation process</p>
+          <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-xl shadow-xl mx-auto max-w-4xl">
+            <iframe 
+              src="https://www.youtube.com/embed/grmqsVtQIOs" 
+              title="Solar Panel Installation Video"
+              className="absolute top-0 left-0 w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
       </div>
     </section>
