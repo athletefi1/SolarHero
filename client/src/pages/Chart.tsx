@@ -170,47 +170,51 @@ const ChartPage = () => {
         </h1>
         
         <div className="bg-white rounded-xl shadow-xl p-6 mb-6">
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <div className="mb-4">
-                <div className="font-bold mb-2">Your Current Monthly Bill</div>
-                <div className="text-2xl">${currentBill}</div>
-              </div>
-              
-              <div className="mb-4">
-                <div className="font-bold mb-2">SolarMan Fixed Rate</div>
-                <div className="text-2xl">${solarRate}</div>
-              </div>
-              
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                <div className="font-bold text-green-700 text-lg mb-2">Your 25-Year Savings</div>
-                <div className="text-3xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
-                <div className="text-green-600 mt-1">You'll save ${((currentBill - solarRate) * 12).toFixed(0)} in the first year!</div>
-              </div>
+          {/* Legend at the top */}
+          <div className="flex items-center justify-center gap-8 mb-6">
+            <div className="flex items-center">
+              <span className="inline-block w-4 h-4 bg-red-500 rounded-full mr-2"></span>
+              <span className="text-gray-700">Utility Bills (4% annual increase)</span>
             </div>
-            
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center">
-                  <span className="inline-block w-4 h-4 bg-red-500 rounded-full mr-2"></span>
-                  <span className="text-gray-700">Utility Bills (4% annual increase)</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
-                  <span className="text-gray-700">SolarMan Fixed Rate</span>
-                </div>
-              </div>
-              <div className="text-sm text-gray-500 mb-2">
-                * Chart shows monthly payment comparison over 25 years
-              </div>
+            <div className="flex items-center">
+              <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
+              <span className="text-gray-700">SolarMan Fixed Rate</span>
             </div>
           </div>
           
-          <div className="h-[500px]">
+          {/* Monthly Bills Comparison */}
+          <div className="grid md:grid-cols-2 gap-8 mb-6">
+            <div className="border border-gray-200 rounded p-4">
+              <div className="font-bold mb-2">Your Current Monthly Bill</div>
+              <div className="text-3xl">${currentBill}</div>
+            </div>
+            <div className="border border-gray-200 rounded p-4">
+              <div className="font-bold mb-2">SolarMan Fixed Rate</div>
+              <div className="text-3xl">${solarRate}</div>
+            </div>
+          </div>
+          
+          {/* Savings Box */}
+          <div className="max-w-lg mx-auto mb-8">
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <div className="font-bold text-green-700 text-lg mb-2">Your 25-Year Savings</div>
+              <div className="text-3xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
+              <div className="text-green-600 mt-1">You'll save ${((currentBill - solarRate) * 12).toFixed(0)} in the first year!</div>
+            </div>
+          </div>
+          
+          {/* Chart footnote */}
+          <div className="text-center text-sm text-gray-500 mb-2">
+            * Chart shows monthly payment comparison over 25 years
+          </div>
+          
+          {/* Chart */}
+          <div className="h-[400px]">
             <canvas ref={chartRef} id="savings-chart"></canvas>
           </div>
         </div>
         
+        {/* Buttons */}
         <div className="flex justify-center gap-4">
           <button 
             onClick={() => setLocation('/')}
@@ -220,7 +224,7 @@ const ChartPage = () => {
           </button>
           <button 
             onClick={() => setLocation('/#contact')}
-            className="px-6 py-3 bg-secondary text-[hsl(var(--dark))] rounded-lg font-medium hover:bg-secondary/90 transition-colors"
+            className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-500 transition-colors"
           >
             Schedule My Consultation
           </button>
