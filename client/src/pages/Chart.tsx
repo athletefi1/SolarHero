@@ -132,12 +132,12 @@ const ChartPage = () => {
           {
             label: 'SolarMan Fixed Rate',
             data: yearlyData.solar,
-            borderColor: 'hsl(var(--primary))',
+            borderColor: '#1C64F2',
             backgroundColor: 'rgba(28, 100, 242, 0.05)',
             borderWidth: 4,
             tension: 0.3,
             fill: false,
-            pointBackgroundColor: 'hsl(var(--primary))',
+            pointBackgroundColor: '#1C64F2',
             pointRadius: 5
           }
         ]
