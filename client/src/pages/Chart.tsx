@@ -424,12 +424,12 @@ const ChartPage = () => {
             >
               Back to Homepage
             </button>
-            <button 
-              onClick={() => setLocation('/#contact')}
-              className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-500 transition-colors shadow-md"
+            <a 
+              href="/#contact"
+              className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-500 transition-colors shadow-md inline-block"
             >
-              Request a Solar Consultation
-            </button>
+              Schedule My Consultation
+            </a>
           </div>
         </div>
       </div>
