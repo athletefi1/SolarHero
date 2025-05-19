@@ -20,7 +20,7 @@ const HeroSection = () => {
                 <span className="text-secondary block md:inline"> Just Sunlight.</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-                Pay a fixed monthly amount that's less than your current bill and watch your savings grow over the next 20 years.
+                Pay a fixed monthly amount that's less than your current bill and watch your savings grow over the next 25 years.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 

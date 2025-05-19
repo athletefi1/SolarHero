@@ -197,7 +197,7 @@ const ComparisonSection = () => {
                     SolarMan Fixed Rate ($)
                   </Label>
                   <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 font-medium">
-                    ${solarRate} <span className="text-sm text-green-600 ml-2">(Always 10% less than your current bill)</span>
+                    ${solarRate} <span className="text-sm text-green-600 ml-2">(Always 15% less than your current bill)</span>
                   </div>
                 </div>
                 
