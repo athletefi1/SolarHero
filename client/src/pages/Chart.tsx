@@ -428,7 +428,7 @@ const ChartPage = () => {
               onClick={() => setLocation('/#contact')}
               className="px-6 py-3 bg-yellow-400 text-gray-900 rounded-lg font-medium hover:bg-yellow-500 transition-colors shadow-md"
             >
-              Schedule My Consultation
+              Request a Solar Consultation
             </button>
           </div>
         </div>
