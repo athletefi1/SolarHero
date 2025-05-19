@@ -107,11 +107,18 @@ const ChartPage = () => {
     setFirstYearSavings(Math.round((currentBill - solarRate) * 12));
   }, [currentBill, solarRate, annualIncrease, yearsToProject]);
 
+  // Social sharing state
+  const [showSharePopup, setShowSharePopup] = useState(false);
+  const [monthlySavings, setMonthlySavings] = useState(0);
+  
+  // Calculate monthly savings whenever first year savings changes
+  useEffect(() => {
+    setMonthlySavings(Math.round(firstYearSavings / 12));
+  }, [firstYearSavings]);
+  
   // Handle share button
   const handleShare = () => {
-    const shareableUrl = `${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`;
-    navigator.clipboard.writeText(shareableUrl);
-    alert("Shareable link copied to clipboard!");
+    setShowSharePopup(!showSharePopup);
   };
 
   // Initialize chart
@@ -373,7 +380,7 @@ const ChartPage = () => {
               
               <div className="p-5 bg-gradient-to-br from-green-50/60 to-green-100/60 border border-green-200 rounded-lg text-center">
                 <div className="text-green-700 font-medium mb-2">Monthly Savings</div>
-                <div className="text-3xl font-bold text-green-800/80">${(firstYearSavings / 12).toFixed(0)}</div>
+                <div className="text-3xl font-bold text-green-800/80">${monthlySavings.toLocaleString()}</div>
               </div>
             </div>
             
@@ -408,8 +415,8 @@ const ChartPage = () => {
               * Chart shows cost comparison over {yearsToProject} years based on current rates and projected increases
             </div>
             
-            {/* Share Button */}
-            <div className="flex justify-center">
+            {/* Share Button and Popup */}
+            <div className="flex justify-center relative">
               <button 
                 onClick={handleShare}
                 className="flex items-center gap-2 px-5 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
@@ -423,6 +430,59 @@ const ChartPage = () => {
                 </svg>
                 Share This Calculation
               </button>
+              
+              {/* Social Sharing Popup */}
+              {showSharePopup && (
+                <div className="absolute bottom-full mb-2 bg-white rounded-xl shadow-xl p-6 w-80 z-10 border border-gray-200">
+                  <div className="text-center mb-4">
+                    <h4 className="font-bold text-lg mb-1">Share your savings</h4>
+                    <p className="text-sm text-gray-600">
+                      Tell friends what you could do with your ${totalSavings.toLocaleString()} savings over {yearsToProject} years!
+                    </p>
+                  </div>
+                  
+                  {/* Social Media Icons */}
+                  <div className="flex justify-center gap-3 mb-4">
+                    <FacebookShareButton
+                      url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
+                      quote={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! What would you do with that money? Contact SolarMan to learn more!`}
+                    >
+                      <FacebookIcon size={40} round />
+                    </FacebookShareButton>
+                    
+                    <TwitterShareButton
+                      url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
+                      title={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! What would you do with that money?`}
+                      hashtags={["SolarSavings", "GoSolar"]}
+                    >
+                      <TwitterIcon size={40} round />
+                    </TwitterShareButton>
+                    
+                    <LinkedinShareButton
+                      url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
+                      title="My Solar Savings Calculator Results"
+                      summary={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! Contact them to calculate your savings.`}
+                    >
+                      <LinkedinIcon size={40} round />
+                    </LinkedinShareButton>
+                    
+                    <EmailShareButton
+                      url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
+                      subject="Check out my potential solar savings!"
+                      body={`I just calculated that I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years by switching to SolarMan Energy's fixed-rate solar plan. Check out your potential savings here:`}
+                    >
+                      <EmailIcon size={40} round />
+                    </EmailShareButton>
+                  </div>
+                  
+                  <button 
+                    onClick={() => setShowSharePopup(false)}
+                    className="w-full py-2 text-sm text-gray-600 hover:text-gray-800"
+                  >
+                    Close
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           
