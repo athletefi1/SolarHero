@@ -105,10 +105,11 @@ const ComparisonSection = () => {
             data: solarData,
             borderColor: 'hsl(var(--primary))',
             backgroundColor: 'rgba(28, 100, 242, 0.1)',
-            borderWidth: 3,
+            borderWidth: 4,
             tension: 0.1,
             fill: false,
-            pointBackgroundColor: 'hsl(var(--primary))'
+            pointBackgroundColor: 'hsl(var(--primary))',
+            pointRadius: 5
           }
         ]
       },
