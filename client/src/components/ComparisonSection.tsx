@@ -20,15 +20,20 @@ interface SavingsChartProps {
 }
 
 const ComparisonSection = () => {
-  const [currentBill, setCurrentBill] = useState<number>(120);
+  const [currentBill, setCurrentBill] = useState<number>(300);
   const [utilityProvider, setUtilityProvider] = useState<string>("PSEG");
   const [monthlySavings, setMonthlySavings] = useState<number>(12);
   const [totalSavings, setTotalSavings] = useState<number>(20189);
   
-  // Calculate SolarMan fixed rate as 15% less than current bill (always)
-  const solarRate = useMemo(() => {
-    return Math.round(currentBill * 0.85);
-  }, [currentBill]);
+  const [solarRate, setSolarRate] = useState<number>(0);
+  const [isEditingSolarRate, setIsEditingSolarRate] = useState<boolean>(false);
+  
+  // Calculate default SolarMan fixed rate as 15% less than current bill
+  useEffect(() => {
+    if (!isEditingSolarRate) {
+      setSolarRate(Math.round(currentBill * 0.85));
+    }
+  }, [currentBill, isEditingSolarRate]);
   
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
@@ -196,9 +201,29 @@ const ComparisonSection = () => {
                   <Label htmlFor="solar-rate" className="block text-gray-700 font-medium mb-2">
                     SolarMan Fixed Rate ($)
                   </Label>
-                  <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 font-medium">
-                    ${solarRate} <span className="text-sm text-green-600 ml-2">(Always 15% less than your current bill)</span>
-                  </div>
+                  {isEditingSolarRate ? (
+                    <Input 
+                      type="number" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                      value={solarRate}
+                      onChange={(e) => setSolarRate(Number(e.target.value))}
+                      onBlur={() => setIsEditingSolarRate(false)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          setIsEditingSolarRate(false);
+                        }
+                      }}
+                      autoFocus
+                    />
+                  ) : (
+                    <div 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700 font-medium cursor-pointer"
+                      onDoubleClick={() => setIsEditingSolarRate(true)}
+                      title="Double-click to edit"
+                    >
+                      ${solarRate} <span className="text-sm text-green-600 ml-2">(15% lower rate - Double-click to customize)</span>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="mb-6">

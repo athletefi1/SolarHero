@@ -27,9 +27,7 @@ const contactFormSchema = z.object({
   city: z.string().min(1, { message: "City is required" }),
   state: z.string().min(1, { message: "State is required" }),
   zipCode: z.string().min(5, { message: "Please enter a valid zip code" }),
-  agreeToTerms: z.boolean().refine(val => val === true, {
-    message: "You must agree to the terms and conditions",
-  }),
+
 });
 
 type ContactFormValues = z.infer<typeof contactFormSchema>;
@@ -49,7 +47,7 @@ const ContactSection = () => {
       city: "Philadelphia",
       state: "PA",
       zipCode: "19103",
-      agreeToTerms: false,
+
     },
   });
 
@@ -240,31 +238,7 @@ const ContactSection = () => {
                     />
                   </div>
                   
-                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
-                    <h3 className="font-medium text-blue-800 mb-2">Consent & Communication</h3>
-                    <FormField
-                      control={form.control}
-                      name="agreeToTerms"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 mt-2">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-sm font-normal">
-                              By clicking "I Agree," I give my electronic signature and consent for SolarMan to contact me about products and services at the number provided. This may include automated calls, pre-recorded messages, and text messages—even if my number is on a Do-Not-Call list.
-                              <br /><br />
-                              I understand that this consent is not required to make a purchase and that I can opt out at any time by contacting support@solarman.energy. Standard message and data rates may apply. All information will be handled in accordance with SolarMan's Privacy Policy.
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+
                   
                   <Button 
                     type="submit" 
