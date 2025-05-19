@@ -65,11 +65,11 @@ const ChartPage = () => {
   useEffect(() => {
     // Calculate multi-year data for the chart
     const years = Array.from({ length: yearsToProject + 1 }, (_, i) => i);
-    const annualRateMultiplier = 1 + (annualIncrease / 100);
+    const rateMultiplier = 1 + (annualIncrease / 100);
     
     // Monthly data
     const utilityData = years.map(year => 
-      parseFloat((currentBill * Math.pow(annualRateMultiplier, year)).toFixed(2))
+      parseFloat((currentBill * Math.pow(rateMultiplier, year)).toFixed(2))
     );
     const solarData = Array(yearsToProject + 1).fill(solarRate);
     
@@ -104,7 +104,18 @@ const ChartPage = () => {
     
     // Set derived values
     setTotalSavings(Math.round(cumulativeSavings[yearsToProject]));
-    setFirstYearSavings(Math.round((currentBill - solarRate) * 12));
+    
+    // Calculate first year savings with annual increase applied
+    let firstYearTotal = 0;
+    
+    // Calculate first year's total with monthly increases
+    for (let month = 0; month < 12; month++) {
+      // Apply monthly compound increase (divide annual rate by 12)
+      const monthlyUtilityBill = currentBill * Math.pow(1 + (annualIncrease / 1200), month);
+      firstYearTotal += monthlyUtilityBill - solarRate;
+    }
+    
+    setFirstYearSavings(Math.round(firstYearTotal));
   }, [currentBill, solarRate, annualIncrease, yearsToProject]);
 
   // Social sharing state
@@ -433,7 +444,7 @@ const ChartPage = () => {
               
               {/* Social Sharing Popup */}
               {showSharePopup && (
-                <div className="absolute bottom-full mb-2 bg-white rounded-xl shadow-xl p-6 w-80 z-10 border border-gray-200">
+                <div className="absolute bottom-full mb-2 bg-white rounded-xl shadow-xl p-6 w-96 z-10 border border-gray-200">
                   <div className="text-center mb-4">
                     <h4 className="font-bold text-lg mb-1">Share your savings</h4>
                     <p className="text-sm text-gray-600">
@@ -441,27 +452,30 @@ const ChartPage = () => {
                     </p>
                   </div>
                   
+                  {/* Pre-filled Share Message */}
+                  <div className="bg-gray-50 p-3 rounded-lg mb-4 text-sm border border-gray-200">
+                    <p>I could save ${totalSavings.toLocaleString()} over {yearsToProject} years with solar. What would you do with that much saved? 💸</p>
+                    <p className="mt-1">Contact The Solar Man → {window.location.origin}</p>
+                  </div>
+                  
                   {/* Social Media Icons */}
                   <div className="flex justify-center gap-3 mb-4">
                     <FacebookShareButton
                       url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
-                      quote={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! What would you do with that money? Contact SolarMan to learn more!`}
+                      hashtag="#SolarSavings"
                     >
                       <FacebookIcon size={40} round />
                     </FacebookShareButton>
                     
                     <TwitterShareButton
                       url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
-                      title={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! What would you do with that money?`}
-                      hashtags={["SolarSavings", "GoSolar"]}
+                      title={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with solar. What would you do with that much saved? 💸 Contact The Solar Man →`}
                     >
                       <TwitterIcon size={40} round />
                     </TwitterShareButton>
                     
                     <LinkedinShareButton
                       url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
-                      title="My Solar Savings Calculator Results"
-                      summary={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with SolarMan Energy! Contact them to calculate your savings.`}
                     >
                       <LinkedinIcon size={40} round />
                     </LinkedinShareButton>
@@ -469,10 +483,24 @@ const ChartPage = () => {
                     <EmailShareButton
                       url={`${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`}
                       subject="Check out my potential solar savings!"
-                      body={`I just calculated that I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years by switching to SolarMan Energy's fixed-rate solar plan. Check out your potential savings here:`}
+                      body={`I could save $${totalSavings.toLocaleString()} over ${yearsToProject} years with solar. What would you do with that much saved? 💸\n\nContact The Solar Man → ${window.location.origin}`}
                     >
                       <EmailIcon size={40} round />
                     </EmailShareButton>
+                  </div>
+                  
+                  {/* Copy Link Option */}
+                  <div className="mb-4">
+                    <button 
+                      onClick={() => {
+                        const shareUrl = `${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`;
+                        navigator.clipboard.writeText(shareUrl);
+                        alert("Link copied to clipboard!");
+                      }}
+                      className="w-full py-2 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-800 font-medium transition-colors"
+                    >
+                      Copy Link
+                    </button>
                   </div>
                   
                   <button 
