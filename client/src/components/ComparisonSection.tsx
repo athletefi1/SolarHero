@@ -103,13 +103,12 @@ const ComparisonSection = () => {
           {
             label: 'SolarMan Fixed Rate',
             data: solarData,
-            borderColor: 'hsl(var(--primary))',
+            borderColor: '#1C64F2',
             backgroundColor: 'rgba(28, 100, 242, 0.1)',
             borderWidth: 4,
             tension: 0.1,
             fill: false,
-            pointBackgroundColor: 'hsl(var(--primary))',
-            pointRadius: 5
+            pointRadius: 0
           }
         ]
       },
