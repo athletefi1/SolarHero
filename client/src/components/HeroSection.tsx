@@ -22,15 +22,26 @@ const HeroSection = () => {
               <p className="text-xl md:text-2xl mb-8 max-w-2xl">
                 Pay a fixed monthly amount that's less than your current bill and watch your savings grow over the next 20 years.
               </p>
-              <Button 
-                asChild
-                className="bg-accent hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-lg transition-all text-lg"
-              >
-                <a href="#compare" className="inline-flex items-center">
-                  Calculate Your Savings
-                  <ChevronDown className="ml-2" />
-                </a>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  asChild
+                  className="bg-accent hover:bg-opacity-90 text-white font-bold py-3 px-8 rounded-lg transition-all text-lg"
+                >
+                  <a href="#compare" className="inline-flex items-center">
+                    Calculate Your Savings
+                    <ChevronDown className="ml-2" />
+                  </a>
+                </Button>
+                
+                <Button 
+                  asChild
+                  className="bg-secondary hover:bg-secondary/90 text-[hsl(var(--dark))] font-bold py-3 px-8 rounded-lg transition-all text-lg"
+                >
+                  <a href="/consultation" className="inline-flex items-center">
+                    Schedule a Solar Consultation
+                  </a>
+                </Button>
+              </div>
             </div>
             
             <div className="flex flex-wrap gap-6 mt-12">

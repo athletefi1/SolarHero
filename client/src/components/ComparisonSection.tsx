@@ -71,8 +71,8 @@ const ComparisonSection = () => {
     const ctx = chartRef.current?.getContext('2d');
     if (!ctx) return;
 
-    // Default data
-    const labels = Array.from({ length: 21 }, (_, i) => i);
+    // Default data for 25 years
+    const labels = Array.from({ length: 26 }, (_, i) => i);
     
     // Calculate utility bills with 4% annual increase
     const utilityData = labels.map(year => currentBill * Math.pow(1.04, year));
@@ -151,8 +151,8 @@ const ComparisonSection = () => {
   const updateChart = () => {
     if (!chartInstance.current) return;
     
-    // Calculate utility bills with 4% annual increase
-    const labels = Array.from({ length: 21 }, (_, i) => i);
+    // Calculate utility bills with 4% annual increase for 25 years
+    const labels = Array.from({ length: 26 }, (_, i) => i);
     const utilityData = labels.map(year => currentBill * Math.pow(1.04, year));
     
     // SolarMan rate stays flat
@@ -239,6 +239,7 @@ const ComparisonSection = () => {
                   <div>Year 10</div>
                   <div>Year 15</div>
                   <div>Year 20</div>
+                  <div>Year 25</div>
                 </div>
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   <div className="flex items-center mb-2">
