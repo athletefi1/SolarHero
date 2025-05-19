@@ -4,6 +4,16 @@ import { useLocation } from "wouter";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  EmailShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  EmailIcon,
+} from "react-share";
 
 const ChartPage = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
