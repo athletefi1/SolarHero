@@ -13,7 +13,6 @@ const ChartPage = () => {
   const [solarRate, setSolarRate] = useState<number>(255);
   const [annualIncrease, setAnnualIncrease] = useState<number>(4);
   const [yearsToProject, setYearsToProject] = useState<number>(25);
-  const [activeTab, setActiveTab] = useState<"monthly" | "yearly" | "total">("monthly");
   const [yearlyData, setYearlyData] = useState<{
     utility: number[], 
     solar: number[],
@@ -30,12 +29,6 @@ const ChartPage = () => {
   const [totalSavings, setTotalSavings] = useState<number>(0);
   const [firstYearSavings, setFirstYearSavings] = useState<number>(0);
   
-  // Edit states
-  const [editingCurrentBill, setEditingCurrentBill] = useState<boolean>(false);
-  const [editingSolarRate, setEditingSolarRate] = useState<boolean>(false);
-  const [tempCurrentBill, setTempCurrentBill] = useState<string>('300');
-  const [tempSolarRate, setTempSolarRate] = useState<string>('255');
-  
   useEffect(() => {
     // Get query parameters if any
     const params = new URLSearchParams(window.location.search);
@@ -46,13 +39,11 @@ const ChartPage = () => {
     if (billParam) {
       const bill = parseInt(billParam);
       setCurrentBill(bill);
-      setTempCurrentBill(bill.toString());
     }
     
     if (rateParam) {
       const rate = parseInt(rateParam);
       setSolarRate(rate);
-      setTempSolarRate(rate.toString());
     }
     
     if (increaseParam) {
@@ -105,132 +96,12 @@ const ChartPage = () => {
     setTotalSavings(Math.round(cumulativeSavings[yearsToProject]));
     setFirstYearSavings(Math.round((currentBill - solarRate) * 12));
   }, [currentBill, solarRate, annualIncrease, yearsToProject]);
-  
-  // Handle editing bill value
-  const handleBillEdit = () => {
-    setEditingCurrentBill(true);
-  };
-  
-  const saveBillEdit = () => {
-    const newValue = parseInt(tempCurrentBill);
-    if (!isNaN(newValue) && newValue > 0) {
-      setCurrentBill(newValue);
-    } else {
-      setTempCurrentBill(currentBill.toString());
-    }
-    setEditingCurrentBill(false);
-  };
-  
-  // Handle editing solar rate
-  const handleRateEdit = () => {
-    setEditingSolarRate(true);
-  };
-  
-  const saveRateEdit = () => {
-    const newValue = parseInt(tempSolarRate);
-    if (!isNaN(newValue) && newValue > 0) {
-      setSolarRate(newValue);
-    } else {
-      setTempSolarRate(solarRate.toString());
-    }
-    setEditingSolarRate(false);
-  };
 
   // Handle share button
   const handleShare = () => {
     const shareableUrl = `${window.location.origin}/chart?bill=${currentBill}&rate=${solarRate}&increase=${annualIncrease}`;
     navigator.clipboard.writeText(shareableUrl);
     alert("Shareable link copied to clipboard!");
-  };
-  
-  // Get the appropriate data for the active tab
-  const getActiveChartData = () => {
-    switch (activeTab) {
-      case "monthly":
-        return {
-          datasets: [
-            {
-              label: 'Utility Bills',
-              data: yearlyData.utility,
-              borderColor: '#EF4444',
-              backgroundColor: 'rgba(239, 68, 68, 0.05)',
-              borderWidth: 2,
-              tension: 0.3,
-              fill: false
-            },
-            {
-              label: 'SolarMan Fixed Rate',
-              data: yearlyData.solar,
-              borderColor: 'hsl(var(--primary))',
-              backgroundColor: 'rgba(28, 100, 242, 0.05)',
-              borderWidth: 3,
-              tension: 0.3,
-              fill: false,
-              pointBackgroundColor: 'hsl(var(--primary))'
-            }
-          ]
-        };
-      case "yearly":
-        return {
-          datasets: [
-            {
-              label: 'Yearly Utility Costs',
-              data: yearlyData.utility.map(value => value * 12),
-              borderColor: '#EF4444',
-              backgroundColor: 'rgba(239, 68, 68, 0.05)',
-              borderWidth: 2,
-              tension: 0.3,
-              fill: false
-            },
-            {
-              label: 'Yearly SolarMan Costs',
-              data: yearlyData.solar.map(value => value * 12),
-              borderColor: 'hsl(var(--primary))',
-              backgroundColor: 'rgba(28, 100, 242, 0.05)',
-              borderWidth: 3,
-              tension: 0.3,
-              fill: false,
-              pointBackgroundColor: 'hsl(var(--primary))'
-            }
-          ]
-        };
-      case "total":
-        return {
-          datasets: [
-            {
-              label: 'Total Utility Costs',
-              data: yearlyData.cumulativeUtility,
-              borderColor: '#EF4444',
-              backgroundColor: 'rgba(239, 68, 68, 0.1)',
-              borderWidth: 2,
-              tension: 0.3,
-              fill: true
-            },
-            {
-              label: 'Total SolarMan Costs',
-              data: yearlyData.cumulativeSolar,
-              borderColor: 'hsl(var(--primary))',
-              backgroundColor: 'rgba(28, 100, 242, 0.1)',
-              borderWidth: 3,
-              tension: 0.3,
-              fill: true,
-              pointBackgroundColor: 'hsl(var(--primary))'
-            },
-            {
-              label: 'Cumulative Savings',
-              data: yearlyData.savings,
-              borderColor: '#10B981',
-              backgroundColor: 'rgba(16, 185, 129, 0.1)',
-              borderWidth: 2,
-              borderDash: [5, 5],
-              tension: 0.3,
-              fill: false
-            }
-          ]
-        };
-      default:
-        return { datasets: [] };
-    }
   };
 
   // Initialize chart
@@ -244,20 +115,31 @@ const ChartPage = () => {
       chartInstance.current.destroy();
     }
     
-    // Get Y axis title based on active tab
-    const yAxisTitle = 
-      activeTab === "monthly" ? "Monthly Cost ($)" : 
-      activeTab === "yearly" ? "Yearly Cost ($)" : 
-      "Cumulative Cost ($)";
-    
-    // Get chart data based on active tab
-    const chartData = getActiveChartData();
-    
     chartInstance.current = new Chart(ctx, {
       type: 'line',
       data: {
         labels: Array.from({ length: yearsToProject + 1 }, (_, i) => `Year ${i}`),
-        datasets: chartData.datasets
+        datasets: [
+          {
+            label: 'Utility Bills',
+            data: yearlyData.utility,
+            borderColor: '#EF4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.05)',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: false
+          },
+          {
+            label: 'SolarMan Fixed Rate',
+            data: yearlyData.solar,
+            borderColor: 'hsl(var(--primary))',
+            backgroundColor: 'rgba(28, 100, 242, 0.05)',
+            borderWidth: 3,
+            tension: 0.3,
+            fill: false,
+            pointBackgroundColor: 'hsl(var(--primary))'
+          }
+        ]
       },
       options: {
         responsive: true,
@@ -325,7 +207,7 @@ const ChartPage = () => {
             },
             title: {
               display: true,
-              text: yAxisTitle,
+              text: "Monthly Cost ($)",
               font: {
                 size: 14,
                 weight: 'bold'
@@ -365,7 +247,7 @@ const ChartPage = () => {
         chartInstance.current.destroy();
       }
     };
-  }, [yearlyData, activeTab]);
+  }, [yearlyData, yearsToProject]);
   
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
@@ -383,14 +265,13 @@ const ChartPage = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 border-b border-gray-100 pb-8">
               <div>
                 <Label htmlFor="current-bill" className="block text-gray-700 font-medium mb-2">
-                  Monthly Utility Bill
+                  Monthly Utility Bill ($)
                 </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-500">$</span>
+                <div>
                   <Input 
                     id="current-bill" 
                     type="number" 
-                    className="pl-8 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" 
                     value={currentBill} 
                     onChange={(e) => setCurrentBill(Number(e.target.value))}
                   />
@@ -399,14 +280,13 @@ const ChartPage = () => {
               
               <div>
                 <Label htmlFor="solar-rate" className="block text-gray-700 font-medium mb-2">
-                  SolarMan Fixed Rate
+                  SolarMan Fixed Rate ($)
                 </Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-500">$</span>
+                <div>
                   <Input 
                     id="solar-rate" 
                     type="number" 
-                    className="pl-8 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" 
                     value={solarRate} 
                     onChange={(e) => setSolarRate(Number(e.target.value))}
                   />
@@ -475,49 +355,22 @@ const ChartPage = () => {
                 <div className="text-3xl font-bold text-green-800">${totalSavings.toLocaleString()}</div>
               </div>
               
-              <div className="p-5 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg text-center">
-                <div className="text-blue-700 font-medium mb-2">First Year Savings</div>
-                <div className="text-3xl font-bold text-blue-800">${firstYearSavings.toLocaleString()}</div>
+              <div className="p-5 bg-gradient-to-br from-green-50/80 to-green-100/80 border border-green-200 rounded-lg text-center">
+                <div className="text-green-700 font-medium mb-2">First Year Savings</div>
+                <div className="text-3xl font-bold text-green-800/90">${firstYearSavings.toLocaleString()}</div>
               </div>
               
-              <div className="p-5 bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg text-center">
-                <div className="text-purple-700 font-medium mb-2">Monthly Savings</div>
-                <div className="text-3xl font-bold text-purple-800">${(firstYearSavings / 12).toFixed(0)}</div>
+              <div className="p-5 bg-gradient-to-br from-green-50/60 to-green-100/60 border border-green-200 rounded-lg text-center">
+                <div className="text-green-700 font-medium mb-2">Monthly Savings</div>
+                <div className="text-3xl font-bold text-green-800/80">${(firstYearSavings / 12).toFixed(0)}</div>
               </div>
             </div>
             
-            {/* Chart Tab Selection */}
-            <div className="flex flex-wrap mb-6 border-b border-gray-200">
-              <button
-                className={`px-6 py-3 font-medium transition-colors ${
-                  activeTab === "monthly" 
-                  ? "text-primary border-b-2 border-primary" 
-                  : "text-gray-600 hover:text-primary"
-                }`}
-                onClick={() => setActiveTab("monthly")}
-              >
-                Monthly Costs
-              </button>
-              <button
-                className={`px-6 py-3 font-medium transition-colors ${
-                  activeTab === "yearly" 
-                  ? "text-primary border-b-2 border-primary" 
-                  : "text-gray-600 hover:text-primary"
-                }`}
-                onClick={() => setActiveTab("yearly")}
-              >
-                Yearly Costs
-              </button>
-              <button
-                className={`px-6 py-3 font-medium transition-colors ${
-                  activeTab === "total" 
-                  ? "text-primary border-b-2 border-primary" 
-                  : "text-gray-600 hover:text-primary"
-                }`}
-                onClick={() => setActiveTab("total")}
-              >
-                Cumulative Costs & Savings
-              </button>
+            {/* Chart Title */}
+            <div className="mb-6 border-b border-gray-200 pb-3">
+              <h3 className="text-xl font-semibold text-center text-gray-800">
+                Monthly Payment Comparison
+              </h3>
             </div>
             
             {/* Legend */}
@@ -532,12 +385,6 @@ const ChartPage = () => {
                 <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
                 <span className="text-gray-700">SolarMan Fixed Rate</span>
               </div>
-              {activeTab === "total" && (
-                <div className="flex items-center">
-                  <span className="inline-block w-4 h-4 bg-green-500 rounded-full mr-2"></span>
-                  <span className="text-gray-700">Your Cumulative Savings</span>
-                </div>
-              )}
             </div>
             
             {/* Chart */}
