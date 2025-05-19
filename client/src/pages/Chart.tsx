@@ -134,10 +134,11 @@ const ChartPage = () => {
             data: yearlyData.solar,
             borderColor: 'hsl(var(--primary))',
             backgroundColor: 'rgba(28, 100, 242, 0.05)',
-            borderWidth: 3,
+            borderWidth: 4,
             tension: 0.3,
             fill: false,
-            pointBackgroundColor: 'hsl(var(--primary))'
+            pointBackgroundColor: 'hsl(var(--primary))',
+            pointRadius: 5
           }
         ]
       },
