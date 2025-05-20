@@ -304,10 +304,6 @@ const ContactSection = () => {
               
               <Card className="bg-primary/10 p-5 rounded-xl">
                 <CardContent className="p-0">
-                  <div className="font-bold mb-2">Why Choose SolarMan?</div>
-                  <p className="text-gray-700 mb-4">
-                    We're committed to making solar energy accessible to everyone. No cash needed, no credit checks required.
-                  </p>
                   <div className="flex justify-center">
                     <a href="https://www.linkedin.com/company/solarmanenergy" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
