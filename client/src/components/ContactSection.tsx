@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle, MapPin, Clock, PhoneCall, Mail } from "lucide-react";
+import { parsePhoneNumberFromString, AsYouType } from "libphonenumber-js/min";
 import {
   Form,
   FormControl,
@@ -34,7 +35,72 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const ContactSection = () => {
   const [formSuccess, setFormSuccess] = useState(false);
+  const [addressSuggestions, setAddressSuggestions] = useState<string[]>([]);
+  const [showAddressSuggestions, setShowAddressSuggestions] = useState(false);
+  const addressRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  
+  // Common US street suffixes and states for suggestions
+  const commonAddresses = [
+    "123 Main St, Philadelphia, PA 19103",
+    "456 Oak Ave, Trenton, NJ 08601",
+    "789 Pine Blvd, Cherry Hill, NJ 08003",
+    "101 Washington St, Princeton, NJ 08540",
+    "202 Park Ave, Pittsburgh, PA 15222"
+  ];
+  
+  // Format phone number as user types
+  const formatPhoneNumber = (value: string) => {
+    if (!value) return value;
+    const phoneNumber = new AsYouType('US').input(value);
+    return phoneNumber;
+  };
+  
+  // Handle address suggestions
+  const handleAddressChange = (value: string) => {
+    if (value.length > 3) {
+      const filtered = commonAddresses.filter(addr => 
+        addr.toLowerCase().includes(value.toLowerCase())
+      );
+      setAddressSuggestions(filtered);
+      setShowAddressSuggestions(filtered.length > 0);
+    } else {
+      setShowAddressSuggestions(false);
+    }
+  };
+  
+  // Handle clicking outside suggestions
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
+        setShowAddressSuggestions(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
+  // Select address from suggestions
+  const selectAddress = (address: string) => {
+    const parts = address.split(',');
+    if (parts.length >= 3) {
+      const streetAddress = parts[0].trim();
+      const city = parts[1].trim();
+      const stateZip = parts[2].trim().split(' ');
+      const state = stateZip[0].trim();
+      const zipCode = stateZip[1]?.trim() || '';
+      
+      form.setValue('address', streetAddress);
+      form.setValue('city', city);
+      form.setValue('state', state);
+      form.setValue('zipCode', zipCode);
+      setShowAddressSuggestions(false);
+    }
+  };
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -47,7 +113,6 @@ const ContactSection = () => {
       city: "Philadelphia",
       state: "PA",
       zipCode: "19103",
-
     },
   });
 
@@ -157,11 +222,17 @@ const ContactSection = () => {
                           <Input 
                             type="tel"
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                            placeholder="(555) 123-4567"
                             {...field} 
+                            onChange={(e) => {
+                              // Format phone number as you type
+                              const formattedPhone = formatPhoneNumber(e.target.value);
+                              field.onChange(formattedPhone);
+                            }}
                           />
                         </FormControl>
                         <p className="text-xs text-gray-500 mt-1">
-                          Area Code + Number, No Spaces
+                          Will format as you type: (555) 123-4567
                         </p>
                         <FormMessage />
                       </FormItem>
