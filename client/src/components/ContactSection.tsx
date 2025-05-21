@@ -105,14 +105,14 @@ const ContactSection = () => {
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      phone: "5551234567",
-      address: "123 Main St",
-      city: "Philadelphia",
-      state: "PA",
-      zipCode: "19103",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
     },
   });
 
@@ -243,14 +243,41 @@ const ContactSection = () => {
                     control={form.control}
                     name="address"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="relative">
                         <FormLabel className="text-gray-700 font-medium">Street Address*</FormLabel>
                         <FormControl>
-                          <Input 
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                            {...field} 
-                          />
+                          <div ref={suggestionsRef} className="relative w-full">
+                            <Input 
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                              placeholder="123 Main St"
+                              {...field} 
+                              onChange={(e) => {
+                                field.onChange(e);
+                                handleAddressChange(e.target.value);
+                              }}
+                            />
+                          </div>
                         </FormControl>
+                        
+                        {showAddressSuggestions && addressSuggestions.length > 0 && (
+                          <div 
+                            className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-auto"
+                          >
+                            {addressSuggestions.map((address, index) => (
+                              <div 
+                                key={index}
+                                className="px-4 py-2 cursor-pointer hover:bg-gray-100 text-sm"
+                                onClick={() => selectAddress(address)}
+                              >
+                                {address}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
+                        <p className="text-xs text-gray-500 mt-1">
+                          Type to get address suggestions
+                        </p>
                         <FormMessage />
                       </FormItem>
                     )}
