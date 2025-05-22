@@ -69,13 +69,27 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="md:w-1/3 float-animation">
-            {/* SolarMan superhero image */}
-            <img 
-              src={solarManImage} 
-              alt="SolarMan superhero" 
-              className="rounded-2xl shadow-2xl transform -rotate-3 border-4 border-secondary mx-auto" 
-            />
+          <div className="md:w-1/3">
+            {/* SolarMan superhero image with interactive flip effect */}
+            <div className="flip-card mx-auto" style={{ maxWidth: '300px' }}>
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <img 
+                    src={solarManImage} 
+                    alt="SolarMan superhero" 
+                    className="rounded-2xl shadow-2xl transform -rotate-3 border-4 border-secondary mx-auto shake-trigger" 
+                  />
+                </div>
+                <div className="flip-card-back bg-secondary rounded-2xl shadow-2xl border-4 border-primary p-4 flex flex-col justify-center items-center">
+                  <h3 className="text-2xl font-bold text-[hsl(var(--dark))] mb-2">Special Offer!</h3>
+                  <p className="text-lg text-[hsl(var(--dark))] font-semibold mb-4">Share Promo Code:</p>
+                  <div className="bg-white py-3 px-6 rounded-lg shadow-inner text-2xl font-bold text-primary">
+                    #Summer2025
+                  </div>
+                  <p className="mt-4 text-sm text-[hsl(var(--dark))]">for a special discount</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
