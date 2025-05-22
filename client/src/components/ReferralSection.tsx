@@ -15,7 +15,7 @@ const ReferralSection = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-[hsl(var(--dark))] mb-6">Get Our Best Rate</h2>
+              <h2 className="text-4xl font-bold text-white mb-6">Get Our Best Rate</h2>
               <Card className="bg-white p-6 rounded-xl shadow-lg mb-8">
                 <CardContent className="p-0">
                   <div className="text-2xl font-bold text-center mb-4 text-primary">
@@ -37,7 +37,7 @@ const ReferralSection = () => {
                   <Lightbulb className="text-accent text-3xl mr-4" />
                   <div>
                     <div className="font-bold">Tip: Share Your Experience</div>
-                    <p className="text-gray-600">The most successful referrals come from sharing your personal solar journey.</p>
+                    <p className="text-white">The most successful referrals come from sharing your personal solar journey.</p>
                   </div>
                 </div>
               </div>
