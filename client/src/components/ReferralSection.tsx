@@ -44,9 +44,18 @@ const ReferralSection = () => {
                 alt="Residential solar panels on a home" 
                 className="rounded-xl shadow-xl"
               />
-              <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg transform rotate-3 border-2 border-secondary hidden md:block">
-                <div className="text-lg font-bold text-primary">Refer Friends!</div>
-                <div className="text-sm text-gray-600">Help them save too</div>
+              <div className="absolute -bottom-6 -right-6 hidden md:block">
+                <div className="referral-flip-card" style={{ width: "180px", height: "80px" }}>
+                  <div className="referral-flip-card-inner">
+                    <div className="referral-flip-card-front bg-white p-4 rounded-xl shadow-lg transform rotate-3 border-2 border-secondary">
+                      <div className="text-lg font-bold text-primary">Refer Friends!</div>
+                      <div className="text-sm text-gray-600">Help them save too</div>
+                    </div>
+                    <div className="referral-flip-card-back bg-primary p-4 rounded-xl shadow-lg transform rotate-3 border-2 border-secondary">
+                      <div className="text-xl font-bold text-white">You're A Solar Hero</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
