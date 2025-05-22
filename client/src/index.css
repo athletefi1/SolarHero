@@ -62,10 +62,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Londrina Solid', cursive;
+    font-weight: 300;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Londrina Solid', cursive;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
   }
 }
 

@@ -22,6 +22,10 @@ const ReferralSection = () => {
                     Refer 6 people and unlock our best possible solar rate
                   </div>
                   <div className="h-1 w-24 bg-secondary mx-auto mb-6"></div>
+                  <div className="flex items-center mb-4 bg-primary bg-opacity-10 p-3 rounded-lg border-l-4 border-primary">
+                    <Lightbulb className="text-primary text-xl mr-3" />
+                    <p className="text-primary font-medium">The most successful referrals come from sharing your personal solar journey.</p>
+                  </div>
                   <ul className="space-y-4">
                     {referralBenefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
@@ -32,15 +36,6 @@ const ReferralSection = () => {
                   </ul>
                 </CardContent>
               </Card>
-              <div className="bg-accent bg-opacity-10 p-5 rounded-lg">
-                <div className="flex items-center">
-                  <Lightbulb className="text-accent text-3xl mr-4" />
-                  <div>
-                    <div className="font-bold">Tip: Share Your Experience</div>
-                    <p className="text-white">The most successful referrals come from sharing your personal solar journey.</p>
-                  </div>
-                </div>
-              </div>
             </div>
             
             <div className="relative">
