@@ -417,7 +417,7 @@ const ContactSection = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition-all"
+                    className="w-full bg-primary hover:bg-secondary hover:text-[hsl(var(--dark))] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
                   >
                     Schedule My Consultation
                   </Button>
