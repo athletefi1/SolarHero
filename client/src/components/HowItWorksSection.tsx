@@ -7,6 +7,7 @@ const HowItWorksSection = () => {
       title: "Qualify Your Home",
       description: "See if your home qualifies for solar.",
       benefit: "Takes only 5 minutes",
+      completedMessage: "Step 1 Complete! Your home is qualified for solar installation.",
       primary: true
     },
     {
@@ -14,6 +15,7 @@ const HowItWorksSection = () => {
       title: "Preparation",
       description: "Once your custom system is designed, we handle all permitting and paperwork to ensure a smooth start.",
       benefit: "Hassle-free process",
+      completedMessage: "Step 2 Complete! All paperwork and permits are processed.",
       primary: true
     },
     {
@@ -21,6 +23,7 @@ const HowItWorksSection = () => {
       title: "Installation",
       description: "Our certified solar experts install your high-quality system quickly and professionally.",
       benefit: "Professional installation",
+      completedMessage: "Step 3 Complete! Your solar system is now up and running.",
       primary: true
     }
   ];
@@ -37,20 +40,30 @@ const HowItWorksSection = () => {
         
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step) => (
-            <div 
-              key={step.number} 
-              className="step-card bg-white rounded-xl shadow-lg p-6 border-t-4 border-primary"
-            >
-              <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">
-                {step.number}
-              </div>
-              <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-              <p className="text-gray-600 mb-4">
-                {step.description}
-              </p>
-              <div className="text-primary font-medium flex items-center">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                {step.benefit}
+            <div key={step.number} className="step-flip-card h-64">
+              <div className="step-flip-card-inner">
+                <div className="step-flip-card-front bg-white rounded-xl shadow-lg p-6 border-t-4 border-primary">
+                  <div className="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4">
+                    {step.number}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                  <p className="text-gray-600 mb-4">
+                    {step.description}
+                  </p>
+                  <div className="text-primary font-medium flex items-center">
+                    <CheckCircle className="w-5 h-5 mr-2" />
+                    {step.benefit}
+                  </div>
+                </div>
+                <div className="step-flip-card-back bg-secondary rounded-xl shadow-lg p-6 flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 bg-white text-primary rounded-full flex items-center justify-center mb-4">
+                    <CheckCircle className="w-10 h-10" />
+                  </div>
+                  <h3 className="text-xl text-[hsl(var(--dark))] font-bold mb-3 text-center">{step.completedMessage}</h3>
+                  <div className="mt-2 bg-primary text-white py-2 px-4 rounded-lg inline-block">
+                    Click to flip back
+                  </div>
+                </div>
               </div>
             </div>
           ))}
