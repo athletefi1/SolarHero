@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="SolarMan Energy - No Cash, No Credit. Just Sunlight. Affordable solar solutions for homes in NJ/PA regions.">
+    <meta name="keywords" content="solar energy, solar panels, SolarMan, renewable energy, NJ solar, PA solar">
+    <title>SolarMan Energy - No Cash, No Credit. Just Sunlight.</title>
+    <link rel="icon" type="image/png" href="./favicon-SolarMan.png">
+    <link rel="shortcut icon" href="./favicon-SolarMan.png">
+    <link rel="apple-touch-icon" href="./favicon-SolarMan.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Londrina+Solid:wght@300;400;900&family=Montserrat:wght@600;700;800&family=Londrina+Outline&display=swap" rel="stylesheet">
+    <meta property="og:title" content="SolarMan Energy - No Cash, No Credit. Just Sunlight.">
+    <meta property="og:description" content="Affordable solar solutions with fixed monthly payments lower than your current utility bill.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sunman.energy">
+    <style>
+      /* Base Styles */
+      :root {
+        --primary: #058DDC;
+        --secondary: #FFD700;
+        --dark: #333333;
+        --light: #FFFFFF;
+      }
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--dark);
+        line-height: 1.6;
+        background-color: #f5f5f5;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Londrina Solid', cursive;
+        letter-spacing: 0.5px;
+        text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+      }
+      
+      /* Layout */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), 
+                    url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      
+      .hero-content {
+        color: var(--light);
+        max-width: 800px;
+      }
+      
+      /* Typography */
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      
+      .highlight {
+        color: var(--secondary);
+      }
+      
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: var(--primary);
+        color: var(--light);
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .btn:hover {
+        background: var(--secondary);
+        color: var(--dark);
+        transform: translateY(-3px);
+      }
+      
+      .btn-secondary {
+        background: var(--secondary);
+        color: var(--dark);
+      }
+      
+      .btn-secondary:hover {
+        background: var(--primary);
+        color: var(--light);
+      }
+      
+      /* Features Section */
+      .features {
+        padding: 80px 0;
+        background: var(--light);
+      }
+      
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      
+      .feature-card {
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+      
+      .feature-icon {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+      
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        
+        .btn-group {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>No Cash, No Credit. <br><span class="highlight">Just Sunlight.</span></h1>
+          <p>Pay a fixed monthly amount that's less than your current bill and watch your savings grow over the next 25 years.</p>
+          <div class="btn-group">
+            <a href="#calculate" class="btn">Calculate Your Savings</a>
+            <a href="#contact" class="btn btn-secondary" style="margin-left: 15px;">Schedule Consultation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="features" id="features">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 50px;">Why Choose <span class="highlight">SolarMan</span> Energy?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lower Bills</h3>
+            <p>Fixed monthly payments that are at least 15% lower than your current utility rates.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Zero Down</h3>
+            <p>No upfront investment needed to start saving with our solar installation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🌱</div>
+            <h3>Eco-Friendly</h3>
+            <p>Reduce your carbon footprint while enjoying dependable, clean energy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section style="text-align: center; padding: 50px 0; background-color: #f5f5f5;">
+      <div class="container">
+        <h2>Ready to Harness the Power of the Sun?</h2>
+        <p style="margin: 20px 0;">Our full interactive website is coming soon with a savings calculator and more!</p>
+        <p>Contact us: <a href="mailto:info@sunman.energy" style="color: var(--primary);">info@sunman.energy</a></p>
+      </div>
+    </section>
+    
+    <footer style="background: var(--dark); color: var(--light); padding: 40px 0; text-align: center;">
+      <div class="container">
+        <p>&copy; 2023 SolarMan Energy. All Rights Reserved.</p>
+      </div>
+    </footer>
+    
+    <script>
+      // Simple script to handle anchor links smoothly
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
