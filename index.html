@@ -243,8 +243,9 @@
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
           const href = this.getAttribute('href');
-          if (document.querySelector(href)) {
-            document.querySelector(href).scrollIntoView({
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({
               behavior: 'smooth'
             });
           }
@@ -303,7 +304,7 @@
           
           switch(platform) {
             case 'facebook':
-              shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://sunman.energy')}&quote=${encodeURIComponent(message)}`;
+              shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://athletefi1.github.io/SolarHero/')}&quote=${encodeURIComponent(message)}`;
               break;
             case 'twitter':
               shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
