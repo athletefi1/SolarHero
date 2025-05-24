@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="description" content="SolarMan Energy - No Cash, No Credit. Just Sunlight. Affordable solar solutions for homes in NJ/PA regions.">
+    <meta name="keywords" content="solar energy, solar panels, SolarMan, renewable energy, NJ solar, PA solar">
+    <title>SolarMan Energy - No Cash, No Credit. Just Sunlight.</title>
+    <link rel="icon" type="image/png" href="favicon-SolarMan.png">
+    <link rel="shortcut icon" href="favicon-SolarMan.png">
+    <link rel="apple-touch-icon" href="favicon-SolarMan.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Londrina+Solid:wght@300;400;900&family=Montserrat:wght@600;700;800&family=Londrina+Outline&display=swap" rel="stylesheet">
+    <meta property="og:title" content="SolarMan Energy - No Cash, No Credit. Just Sunlight.">
+    <meta property="og:description" content="Affordable solar solutions with fixed monthly payments lower than your current utility bill.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://athletefi1.github.io/SolarHero/">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>No Cash, No Credit. <br><span class="highlight">Just Sunlight.</span></h1>
+          <p>Pay a fixed monthly amount that's less than your current bill and watch your savings grow over the next 25 years.</p>
+          <div class="btn-group">
+            <a href="#calculate" class="btn">Calculate Your Savings</a>
+            <a href="#contact" class="btn btn-secondary" style="margin-left: 15px;">Schedule Consultation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="features" id="features">
+      <div class="container">
+        <h2 style="text-align: center; margin-bottom: 50px;">Why Choose <span class="highlight">SolarMan</span> Energy?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lower Bills</h3>
+            <p>Fixed monthly payments that are at least 15% lower than your current utility rates.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Zero Down</h3>
+            <p>No upfront investment needed to start saving with our solar installation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🌱</div>
+            <h3>Eco-Friendly</h3>
+            <p>Reduce your carbon footprint while enjoying dependable, clean energy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="calculate" style="text-align: center; padding: 70px 0; background-color: #fff;">
+      <div class="container">
+        <h2>Calculate Your Solar Savings</h2>
+        <p style="margin: 20px auto; max-width: 700px;">With SolarMan's fixed-rate plans, you could save thousands over the next 25 years.</p>
+        
+        <div style="max-width: 500px; margin: 40px auto; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+          <form id="savings-calculator" style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="text-align: left;">
+              <label for="current-bill" style="display: block; margin-bottom: 8px; font-weight: bold;">Current Monthly Electric Bill ($)</label>
+              <input type="number" id="current-bill" min="50" max="1000" value="150" style="width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px;">
+            </div>
+            <button type="submit" class="btn" style="margin-top: 10px;">Calculate Savings</button>
+          </form>
+          
+          <div id="savings-result" style="margin-top: 30px; display: none;">
+            <h3>Your 25-Year Savings</h3>
+            <p class="highlight" style="font-size: 2.5rem; font-weight: bold;" id="savings-amount">$45,000</p>
+            <p>That's approximately <span id="monthly-savings">$150</span> saved every month!</p>
+            <div style="margin-top: 20px;">
+              <p>Share your savings:</p>
+              <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+                <a href="#" class="share-btn" data-platform="facebook" style="color: #3b5998; font-size: 1.5rem;">📘</a>
+                <a href="#" class="share-btn" data-platform="twitter" style="color: #1da1f2; font-size: 1.5rem;">🐦</a>
+                <a href="#" class="share-btn" data-platform="email" style="color: #333; font-size: 1.5rem;">✉️</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="contact" style="text-align: center; padding: 50px 0; background-color: #f5f5f5;">
+      <div class="container">
+        <h2>Ready to Harness the Power of the Sun?</h2>
+        <p style="margin: 20px 0;">Take advantage of our special <span class="highlight" style="font-weight: bold;">#Summer2025</span> promotion!</p>
+        <p>Contact us: <a href="mailto:info@sunman.energy" style="color: var(--primary);">info@sunman.energy</a> or call <a href="tel:+18005551234" style="color: var(--primary);">(800) 555-1234</a></p>
+      </div>
+    </section>
+    
+    <footer style="background: var(--dark); color: var(--light); padding: 40px 0; text-align: center;">
+      <div class="container">
+        <p>&copy; 2025 SolarMan Energy. All Rights Reserved.</p>
+      </div>
+    </footer>
+    
+    <script src="./script.js" defer></script>
+  </body>
+</html>
