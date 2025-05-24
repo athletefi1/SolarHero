@@ -82,7 +82,7 @@ const ComparisonSection = () => {
     // Calculate utility bills with 4% annual increase
     const utilityData = labels.map(year => currentBill * Math.pow(1.04, year));
     
-    // SolarMan rate stays flat
+    // Sunman rate stays flat
     const solarData = labels.map(() => solarRate);
     
     // Create the chart
@@ -161,7 +161,7 @@ const ComparisonSection = () => {
     const labels = Array.from({ length: 26 }, (_, i) => i);
     const utilityData = labels.map(year => currentBill * Math.pow(1.04, year));
     
-    // SolarMan rate stays flat
+    // Sunman rate stays flat
     const solarData = labels.map(() => solarRate);
     
     // Update chart data
