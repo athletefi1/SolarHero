@@ -58,13 +58,13 @@ document.querySelectorAll('.share-btn').forEach(btn => {
     
     const platform = this.getAttribute('data-platform');
     const savings = savingsAmount.textContent;
-    const message = `I could save ${savings} over 25 years with solar. What would you do with that much saved? 💸 Contact The Solar Man → https://athletefi1.github.io/SolarHero/`;
+    const message = `I could save ${savings} over 25 years with solar. What would you do with that much saved? 💸 Contact Sunman Energy → https://sunman.energy/`;
     
     let shareUrl;
     
     switch(platform) {
       case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://athletefi1.github.io/SolarHero/')}&quote=${encodeURIComponent(message)}`;
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://sunman.energy/')}&quote=${encodeURIComponent(message)}`;
         break;
       case 'twitter':
         shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
@@ -78,7 +78,7 @@ document.querySelectorAll('.share-btn').forEach(btn => {
   });
 });
 
-// Shake animation for SolarMan logo to reveal promo code
+// Shake animation for Sunman logo to reveal promo code
 const logoElements = document.querySelectorAll('.feature-icon');
 
 // Add shake animation on logo hover
