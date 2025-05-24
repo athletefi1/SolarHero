@@ -251,7 +251,7 @@ const Consultation = () => {
                       </FormControl>
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-sm font-normal">
-                          By clicking "I Agree," I give my electronic signature and consent for SolarMan to contact me about products and services at the number provided. This may include automated calls, pre-recorded messages, and text messages—even if my number is on a Do-Not-Call list.
+                          By clicking "I Agree," I give my electronic signature and consent for Sunman to contact me about products and services at the number provided. This may include automated calls, pre-recorded messages, and text messages—even if my number is on a Do-Not-Call list.
                           <br /><br />
                           I understand that this consent is not required to make a purchase and that I can opt out at any time by contacting support@solarman.energy. Standard message and data rates may apply. All information will be handled in accordance with SolarMan's Privacy Policy.
                         </FormLabel>
