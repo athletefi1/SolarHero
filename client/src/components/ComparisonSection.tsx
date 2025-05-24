@@ -176,7 +176,7 @@ const ComparisonSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-[hsl(var(--dark))] mb-4">See How Much You'll Save</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Compare your current utility bill with SolarMan's fixed rate and watch your savings grow over time.
+            Compare your current utility bill with Sunman's fixed rate and watch your savings grow over time.
           </p>
         </div>
         
@@ -200,7 +200,7 @@ const ComparisonSection = () => {
                 
                 <div className="mb-6">
                   <Label htmlFor="solar-rate" className="block text-gray-700 font-medium mb-2">
-                    SolarMan Fixed Rate ($)
+                    Sunman Fixed Rate ($)
                   </Label>
                   {isEditingSolarRate ? (
                     <Input 
@@ -275,7 +275,7 @@ const ComparisonSection = () => {
                   <div className="flex items-center">
                     <a href="/chart" className="flex items-center cursor-pointer hover:underline">
                       <span className="inline-block w-4 h-4 bg-primary rounded-full mr-2"></span>
-                      <span className="text-gray-700">SolarMan Fixed Rate</span>
+                      <span className="text-gray-700">Sunman Fixed Rate</span>
                     </a>
                   </div>
                 </div>
