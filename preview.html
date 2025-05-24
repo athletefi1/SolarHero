@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sunman Website Preview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #058DDC;
+        }
+        .preview-links {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+        .preview-links a {
+            display: block;
+            margin: 10px 0;
+            color: #058DDC;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .preview-links a:hover {
+            text-decoration: underline;
+        }
+        .files {
+            margin-top: 40px;
+        }
+        .file {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 3px solid #058DDC;
+        }
+        .file h3 {
+            margin-top: 0;
+        }
+        pre {
+            background: #eee;
+            padding: 10px;
+            overflow: auto;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sunman Website Preview</h1>
+    
+    <p>This page helps you preview the Sunman Energy website files before uploading to GitHub. Click the links below to view the individual pages:</p>
+    
+    <div class="preview-links">
+        <a href="github-deploy/index.html" target="_blank">View Homepage</a>
+        <a href="github-deploy/404.html" target="_blank">View 404 Page</a>
+    </div>
+    
+    <div class="files">
+        <h2>Files Ready for GitHub Upload:</h2>
+        
+        <div class="file">
+            <h3>Structure</h3>
+            <pre>
+github-deploy/
+├── index.html
+├── 404.html
+├── CNAME (contains: sunman.energy)
+├── .nojekyll
+└── assets/
+    ├── css/
+    │   └── style.css
+    ├── js/
+    │   └── script.js
+    └── images/
+        ├── favicon.svg
+        └── favicon-Sunman.png
+            </pre>
+        </div>
+        
+        <div class="file">
+            <h3>Next Steps for GitHub Deployment</h3>
+            <ol>
+                <li>Create a new GitHub repository named "Sunman" or "sunman-energy"</li>
+                <li>Upload all files from the github-deploy folder</li>
+                <li>Enable GitHub Pages in repository settings</li>
+                <li>Set up your custom domain "sunman.energy"</li>
+                <li>Configure DNS settings as specified</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
